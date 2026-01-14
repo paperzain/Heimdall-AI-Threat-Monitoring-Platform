@@ -1,4 +1,4 @@
-# Heimdal | AI Threat Monitoring Platform
+# Heimdall | AI Threat Monitoring Platform
 Heimdall is an artificial intelligence-based intrusion detection system designed to perform realtime monitoring and classification of network traffic using machine learning techniques. It captures live packets from the network, extracts relevant features, and streams this data through Apache Kafka, which handles high-throughput, asynchronous communication between system components. The Kafka consumer processes the incoming data and applies pre-trained machine learning models to classify packets as either benign or potentially malicious. Classification results and system metrics are displayed on a Flask-based web dashboard, offering users a clear view of ongoing traffic, detected threats, and system activity.
 
 <img width="864" height="346" alt="System Architecture" src="https://github.com/user-attachments/assets/dcc6381f-1d5f-4de2-aa9d-b6c6834ecaaa" />
