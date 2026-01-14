@@ -1,9 +1,11 @@
 # Heimdal | AI Threat Monitoring Platform
-Heimdall is an artificial intelligence-based intrusion detection system designed to perform realtime monitoring and classification of network traffic using machine learning techniques.
+Heimdall is an artificial intelligence-based intrusion detection system designed to perform realtime monitoring and classification of network traffic using machine learning techniques. It captures live packets from the network, extracts relevant features, and streams this data through Apache Kafka, which handles high-throughput, asynchronous communication between system components. The Kafka consumer processes the incoming data and applies pre-trained machine learning models to classify packets as either benign or potentially malicious. Classification results and system metrics are displayed on a Flask-based web dashboard, offering users a clear view of ongoing traffic, detected threats, and system activity.
+
 <img width="864" height="346" alt="System Architecture" src="https://github.com/user-attachments/assets/dcc6381f-1d5f-4de2-aa9d-b6c6834ecaaa" />
- 
-It captures live packets from the network, extracts relevant features, and streams this data through Apache Kafka, which handles high-throughput, asynchronous communication between system components. The Kafka consumer processes the incoming data and applies pre-trained machine learning models to classify packets as either benign or potentially malicious. Classification results and system metrics are displayed on a Flask-based web dashboard, offering users a clear view of ongoing traffic, detected threats, and system activity. A central aspect of Heimdall is its adaptive learning mechanism, which enables the system to improve over time by retraining its models based on new labeled data. Retraining can be triggered automatically when a certain volume of labeled samples is collected or manually through the dashboard interface. This approach allows Heimdall to adjust to changes in network behavior and maintain relevant detection capabilities as traffic patterns evolve, addressing the problem of concept drift commonly found in static machine learning systems. Prometheus is used for monitoring and collecting performance metrics such as packet throughput, model accuracy, and retraining events, enhancing the system’s transparency and maintainability. The system is built using a modular architecture, separating key functions like data capture, classification, visualization, and retraining into independent components, which makes development and updates more manageable. Overall, Heimdall applies adaptive, datadriven learning to enhance the detection of network anomalies in environments where traffic
-behavior is subject to frequent change.
+
+A central aspect of Heimdall is its adaptive learning mechanism, which enables the system to improve over time by retraining its models based on new labeled data. Retraining can be triggered automatically when a certain volume of labeled samples is collected or manually through the dashboard interface. This approach allows Heimdall to adjust to changes in network behavior and maintain relevant detection capabilities as traffic patterns evolve, addressing the problem of concept drift commonly found in static machine learning systems. Prometheus is used for monitoring and collecting performance metrics such as packet throughput, model accuracy, and retraining events, enhancing the system’s transparency and maintainability. The system is built using a modular architecture, separating key functions like data capture, classification, visualization, and retraining into independent components, which makes development and updates more manageable. Overall, Heimdall applies adaptive, datadriven learning to enhance the detection of network anomalies in environments where traffic  behavior is subject to frequent change.
+
+<img width="829" height="149" alt="image" src="https://github.com/user-attachments/assets/2a851135-f2d4-4f3a-bff6-b42de69a9ce9" />
 
 ## Use Case Model
 The Heimdall system consists of three main actor roles: the Network Administrator, the Security Analyst, and the System (Heimdall) itself. The use case model reflects interactions where the system captures real-time network traffic, analyzes it using ML classifiers, generates alerts, retrains models if necessary, and visualizes threat metrics through Prometheus and Grafana.
@@ -17,6 +19,7 @@ The Heimdall system consists of three main actor roles: the Network Administrato
 </p> 
 
 ## Architecture Diagram
+
 Heimdall follows a multi-tiered architecture consisting of four main layers: Presentation, Business Logic, Data Access, and Data Store. Each layer is responsible for specific tasks, enabling modular
 development and easier maintenance.
 
@@ -38,17 +41,19 @@ improving system scalability and flexibility.
 
 ## Activity Diagram
 The process begins with the activation of the Kafka producer, which captures network packets via Scapy and extracts relevant features. These are serialized into JSON and sent to a Kafka topic. The Kafka consumer retrieves these messages, preprocesses them, and uses preloaded ML models to predict whether the traffic is a threat. Based on the prediction, packets are logged as either benign or threats. Metrics are updated accordingly. If enough labeled data accumulates or manual retraining is triggered, the system initiates model retraining, updates the model's accuracy, and saves the new version. The dashboard component fetches the logs using Flask and displays the threat records to users, completing the cycle.
-
 <img width="824" height="560" alt="image" src="https://github.com/user-attachments/assets/c1b9fb26-44a0-45dd-b574-ee41148cbe89" />
+
+ ## Tools and Technologies 
+ <img width="850" height="396" alt="image" src="https://github.com/user-attachments/assets/2b079154-1f2c-48df-bdde-85a7bbbb051e" />
 
 
 ## Data Flow diagram
 The Data Flow Diagram (DFD) illustrates the overall flow of data within the Heimdall system. Itcaptures how network traffic is ingested, processed, and visualized by different components. The process begins with the capture of raw packets from the network, which are then streamed to a Kafka topic. These packets undergo feature extraction and are converted into structured feature vectors in JSON format. The consumer module retrieves and normalizes these vectors to perform threat classification. The results, including detected threats, are stored in the threat log and made available for visualization on the dashboard. Security analysts can manually initiate retraining if needed, and the system metrics are continuously monitored and visualized using Prometheus and Grafana. The diagram
 also differentiates between three primary data types: raw traffic (blue), feature vectors (green), and logs/metrics (red), ensuring clear traceability of data movement across the system.
+
 <img width="885" height="588" alt="image" src="https://github.com/user-attachments/assets/1ce5604d-8453-450e-93f9-10f021170b62" />
 
 ## Dashboard
-
 ![Dashboard - Threat Monitoring System](https://github.com/user-attachments/assets/e42bb717-f79b-4142-b0b8-3870c8765d7d)
 
 
