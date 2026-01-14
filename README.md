@@ -41,6 +41,8 @@ improving system scalability and flexibility.
 
 ## Activity Diagram
 The process begins with the activation of the Kafka producer, which captures network packets via Scapy and extracts relevant features. These are serialized into JSON and sent to a Kafka topic. The Kafka consumer retrieves these messages, preprocesses them, and uses preloaded ML models to predict whether the traffic is a threat. Based on the prediction, packets are logged as either benign or threats. Metrics are updated accordingly. If enough labeled data accumulates or manual retraining is triggered, the system initiates model retraining, updates the model's accuracy, and saves the new version. The dashboard component fetches the logs using Flask and displays the threat records to users, completing the cycle.
+
+
 <img width="824" height="560" alt="image" src="https://github.com/user-attachments/assets/c1b9fb26-44a0-45dd-b574-ee41148cbe89" />
 
  ## Tools and Technologies 
